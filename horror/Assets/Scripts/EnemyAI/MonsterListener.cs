@@ -1,3 +1,4 @@
+using MazeGame.UI;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,7 @@ namespace MazeGame.EnemyAI
     {
         [SerializeField] private SkinnedMeshRenderer mat;
         [SerializeField] private AnimationCurve curve;
+        [SerializeField] private AudioSource asMon;
         Material m;
         LayerMask playerLayer;
         NavMeshAgent agent;
@@ -17,13 +19,27 @@ namespace MazeGame.EnemyAI
         private int size;
         IState currentState;
         Player.Player player;
-        AudioSource asMon;
         Color emColor = Color.red;
 
         private Coroutine currentCoroutine;
 
 
         float duration = 0.5f, stay = 0.5f;
+
+        private void OnEnable()
+        {
+            UIprompt.OnPauseSwitch += HandleAudio;
+        }
+
+        private void OnDisable()
+        {
+            UIprompt.OnPauseSwitch -= HandleAudio;
+        }
+        private void HandleAudio(bool val)
+        {
+            if (val) asMon.Pause();
+            else asMon.UnPause();
+        }
         private IEnumerator Glow()
         {
             float elapsedTime = 0;
@@ -65,7 +81,6 @@ namespace MazeGame.EnemyAI
     
         private void Start()
         {
-            asMon = GetComponent<AudioSource>();
             m = mat.material;
             m.SetFloat("_EmissionIntensity", 1);
             currentState = StateControl.States[State.STATE_SEARCHING];
@@ -89,19 +104,20 @@ namespace MazeGame.EnemyAI
         }
         public bool isPlayerInZone()
         {
-            return Physics.CheckSphere(transform.position, 5, playerLayer);
+            return Physics.CheckSphere(transform.position, 15, playerLayer);
         }
 
         public void RespondToSound(Sound sound)
         {
-            if (Physics.CheckSphere(transform.position, 5, playerLayer))
+            if (isPlayerInZone() && sound.type == NoiseType.Microphone)
             {
                 currentState = StateControl.States[State.STATE_CHASING];
+                if (!asMon.isPlaying) asMon.Play();
             }
             else
             {
                 agent.SetDestination(sound.pos);
-                asMon.Stop();
+                StartCoroutine(FadeAudio());
             }
             if (currentCoroutine != null)
             {
@@ -109,6 +125,19 @@ namespace MazeGame.EnemyAI
                 StopCoroutine(currentCoroutine);
             }
             currentCoroutine = StartCoroutine(Glow());
+        }
+
+        private IEnumerator FadeAudio()
+        {
+            float currentTime = 0;
+            float startVolume = asMon.volume;
+            while (currentTime < 3)
+            {
+                currentTime += Time.deltaTime;
+                asMon.volume = Mathf.Lerp(startVolume, 0, currentTime / 3);
+                yield return null;
+            }
+            asMon.Stop();
         }
 
         private Vector3 FindPointToReach()

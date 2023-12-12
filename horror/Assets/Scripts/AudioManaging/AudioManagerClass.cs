@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace MazeGame.Sound
+namespace MazeGame.AudioManaging
 {
     public class AudioManagerClass : MonoBehaviour
     {

@@ -162,8 +162,10 @@ MonoBehaviour:
   range: 4
   speed: 12
   throwForce: 10
-  radius: 1.2
+  radius: 2
   UIprompt: {fileID: 0}
+  currentObj: {fileID: 0}
+  cam: {fileID: 0}
 --- !u!114 &3316795643512143046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574c830b42c27b24da8e0e2cc0d2909d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointLight: {fileID: 0}
   Echo: {fileID: 3924725496845843820, guid: fd777e771620c084ab525bfaa076c721, type: 3}
   Sensibility: 100
   treshhold: 3
@@ -379,7 +380,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5321426067049643487}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -489,7 +490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2778489902495891310
 Transform:
   m_ObjectHideFlags: 0
@@ -611,7 +612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9043334920338728131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

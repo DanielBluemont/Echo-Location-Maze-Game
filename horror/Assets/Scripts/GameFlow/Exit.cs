@@ -1,13 +1,35 @@
+using MazeGame.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 namespace MazeGame.GameFlow
 {
     public class Exit : MonoBehaviour
     {
-        public void UnlockDoor()
+        bool gotKey = false;
+        [SerializeField] private GameObject _barrier;
+        private void OnEnable()
         {
-            ExitDoor door = GetComponentInChildren<ExitDoor>();
-            door.Unlock();
+            UIprompt.OnFinishingGame += UnlockDoor;
+        }
+        private void OnDisable()
+        {
+            UIprompt.OnFinishingGame -= UnlockDoor;
+        }
+        private void UnlockDoor()
+        {
+            gotKey = true;
+            Destroy(_barrier );
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            Debug.Log("Ha");
+            if (other.gameObject.CompareTag("Player") && gotKey)
+            {
+                SceneManager.LoadScene(2);  
+            }
         }
     }
 }

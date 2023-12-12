@@ -1,4 +1,4 @@
-using MazeGame.Sound;
+using MazeGame.AudioManaging;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +10,7 @@ namespace MazeGame.UI
         [SerializeField] protected Slider _slider;
         public virtual void Awake()
         {
-            _slider.onValueChanged.AddListener(val => _sliderValue.ChangeValue((int)val));
+            this._slider.onValueChanged.AddListener(val => this._sliderValue.ChangeValue((int)val));
         }
 
         public virtual void SetSliderValue(int value)

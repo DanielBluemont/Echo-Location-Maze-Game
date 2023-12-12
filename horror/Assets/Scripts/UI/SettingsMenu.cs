@@ -7,19 +7,29 @@ namespace MazeGame.UI
     {
         [SerializeField] private GameObject _settingsPanel;
         [SerializeField] private Slider _volumeSlider, _senseSlider;
+        private SliderPublisher _volumePublisher, _sensePublisher;
+        private void Awake () 
+        { 
+            _volumePublisher = _volumeSlider.GetComponent<SliderPublisher>();
+            _sensePublisher = _senseSlider.GetComponent<SliderPublisher>();
+        }
         private void Start()
         {
             LoadSettings();
         }
-
+        public void BackToDefault() 
+        { 
+            SetSoundVolume(100);
+            SetSenseValue(100);
+            _volumePublisher.SetSliderValue(100);
+            _sensePublisher.SetSliderValue(100);
+            SaveSettings();
+        }
         public void CloseSettings()
         {
             _settingsPanel?.SetActive(false);
             SetSoundVolume((int)_volumeSlider.value);
             SetSenseValue((int)_senseSlider.value);
-            Debug.Log($"SETTINGS ARE SAVED. \n " +
-                      $"VOLUME IS: {PlayerPrefs.GetInt("SoundVolume")} \n" +
-                      $"SENSE IS : {PlayerPrefs.GetInt("SenseValue")}");
             SaveSettings(); 
         }
 
@@ -36,9 +46,9 @@ namespace MazeGame.UI
 
         private void LoadSettings()
         {
-            _volumeSlider.GetComponent<SliderPublisher>().
+            _volumePublisher.
                 SetSliderValue(PlayerPrefs.GetInt("SoundVolume", 100));
-            _senseSlider.GetComponent<SliderPublisher>().
+            _sensePublisher.
                 SetSliderValue(PlayerPrefs.GetInt("SenseValue", 100));
         }
         private void SaveSettings()

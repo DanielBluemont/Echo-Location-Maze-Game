@@ -24,7 +24,7 @@ namespace MazeGame.MazeAlgorithm
             int[] usedY = {};
             Width = w;
             Height = h;
-            quantity = (int)(Width*Height * 0.05);
+            quantity = 15;
             for (int j = 0; j < 4; j++)
             {
                 int num = quantity;

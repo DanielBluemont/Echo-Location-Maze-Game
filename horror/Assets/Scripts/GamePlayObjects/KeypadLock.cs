@@ -10,6 +10,8 @@ namespace MazeGame.GamePlayObjects
         [SerializeField] private TextMeshProUGUI codeText;
         [SerializeField] private Material[] materials = new Material[4];
         [SerializeField] private Renderer[] LightBulbs = new Renderer[4];
+        [SerializeField] private AudioClip _click, _error, _delete, _success;
+        [SerializeField] private AudioSource _keyPadAudioSource;
         private string _dialedCode;
         private string _realCode;
     
@@ -35,10 +37,11 @@ namespace MazeGame.GamePlayObjects
         public void SetDigit(int digit)
         {
             _dialedCode += digit.ToString();
+            _keyPadAudioSource.PlayOneShot(_click);
             SetText(_dialedCode);
             if (_dialedCode.Length >= 4)
             {
-                CheckCode();
+                StartCoroutine(ConfirmCode(1));
             }
         }
         public void DeleteDigit()
@@ -46,7 +49,9 @@ namespace MazeGame.GamePlayObjects
             if (_dialedCode.Length > 0)
             {
                 _dialedCode = _dialedCode.Remove(_dialedCode.Length-1);
+                _keyPadAudioSource.PlayOneShot(_delete);
                 SetText(_dialedCode);
+
             }
         }
         private void CheckCode()
@@ -55,11 +60,24 @@ namespace MazeGame.GamePlayObjects
             {
                 Instantiate(Key, transform.position, Quaternion.identity);
                 StartCoroutine(OpenDoor());
+                _keyPadAudioSource.PlayOneShot(_success);
             }
+            else
+            {
+                _keyPadAudioSource.PlayOneShot(_error);
+            }
+            _dialedCode = string.Empty;
+            SetText(_dialedCode);
         }
         private void SetText(string txt)
         {
             codeText.text = txt;
+        }
+        IEnumerator ConfirmCode(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            CheckCode();
+
         }
         IEnumerator OpenDoor()
         {

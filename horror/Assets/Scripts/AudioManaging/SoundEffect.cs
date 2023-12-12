@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MazeGame.Sound
+namespace MazeGame.AudioManaging
 {
     public class SoundEffect : MonoBehaviour
     {

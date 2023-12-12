@@ -1,4 +1,5 @@
 using System.Collections;
+using MazeGame.EnemyAI;
 using MazeGame.UI;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace MazeGame.Player
     {
         public delegate void OnPress();
         public static event OnPress OnEscPressed;
+        public delegate void OnHold(bool arg);
+        public static event OnHold OnTab;
         [SerializeField] private float gravityForce = -19.62f;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
@@ -18,15 +21,8 @@ namespace MazeGame.Player
         UIprompt uIprompt;
         bool isGrounded, canRun;
 
-        private void OnEnable()
-        {
-        
-        }
-
-        private void OnDisable()
-        {
-        
-        }
+        Transform enemy;
+    
 
         private void Awake()
         {
@@ -34,11 +30,26 @@ namespace MazeGame.Player
             uIprompt = FindObjectOfType<UIprompt>();
             canRun = true;
         }
-
+        private void Start()
+        {
+            enemy = FindObjectOfType<MonsterListener>().transform;
+        }
         private void Update()
         {
             MovePlayer();
             OpenSettings();
+            CheckInfo();
+        }
+        private void CheckInfo()
+        {
+            if (Input.GetKey(KeyCode.Tab))
+            {
+                OnTab?.Invoke(true);
+            }
+            else
+            {
+                OnTab?.Invoke(false);
+            }
         }
         private void OpenSettings()
         {
@@ -85,18 +96,19 @@ namespace MazeGame.Player
             {
                 currentSpeed = speed; 
             }
-       
 
-            Vector3 move = (transform.right * x + transform.forward * z);
 
-            controller.Move(Vector3.ClampMagnitude(move, 1.0f) * currentSpeed * Time.deltaTime);
+            Vector3 move = (transform.right * x + transform.forward * z) * currentSpeed * Time.deltaTime;
+            move = Vector3.ClampMagnitude(move, 1.0f);
 
             velocity.y += gravityForce * Time.deltaTime;
+            move += velocity * Time.deltaTime;
 
-            controller.Move(velocity * Time.deltaTime);
+            controller.Move(move);
+
         }
 
-    
+
 
         private IEnumerator Fatigue()
         {
@@ -112,6 +124,8 @@ namespace MazeGame.Player
             }
             canRun = true;
         }
+
+        
 
         private void OnControllerColliderHit(ControllerColliderHit hit) 
         {

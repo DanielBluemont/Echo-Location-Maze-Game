@@ -1,6 +1,6 @@
 using System.Collections;
 using MazeGame.GameFlow;
-using MazeGame.Sound;
+using MazeGame.AudioManaging;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,16 +11,17 @@ namespace MazeGame.UI
     {
         public delegate void OnPause(bool state);
         public static event OnPause OnPauseSwitch;
+        public delegate void OnFinishing();
+        public static event OnFinishing OnFinishingGame;
         const float SHOW_TIME = 1.5f;
         [SerializeField] private TextMeshProUGUI _prompt;
         [SerializeField] private TextMeshProUGUI keyText;
-        [SerializeField] private RawImage keyUI;
-        [SerializeField] private Exit exit;
         [SerializeField] private Image slider;
         [SerializeField] private CanvasGroup backSlider;
         [Space]
         [SerializeField] private GameObject _gameMenu;
-        private int keyNum = 0;
+        [Space]
+        [SerializeField] private NoteRevealer _noteRevealer;
         public bool isDisplayed = false;
 
         private void OnEnable()
@@ -74,17 +75,14 @@ namespace MazeGame.UI
             return slider.fillAmount;
         }
 
-        public int KeyAmount
-        {
-            get
-            {
-                return keyNum;
-            }
-        }
         private void Start() 
         {
             DisableText();
-         
+        }
+
+        public void SaveNote(string num, Color color)
+        {
+            _noteRevealer.CreateNoteUI(num, color);
         }
         //set prompt methods \/ \/ \/
         public void SetText(string prompt)
@@ -102,38 +100,17 @@ namespace MazeGame.UI
         //methods for key \/ \/ \/
         public void IncrementKeys()
         {
-            if (keyNum >= 1) return;
-            keyNum++;
-            keyText.text = $"{keyNum}/{1}";
+            OnFinishingGame?.Invoke();
             StartCoroutine(ChangeTransparency());
-            exit = FindObjectOfType<Exit>(); 
-            exit.UnlockDoor();
         }
 
         IEnumerator ChangeTransparency()
         {
-            float elapsedTime = 0;
-            while (elapsedTime < SHOW_TIME)
-            {
-                elapsedTime += Time.deltaTime;
-                float value = elapsedTime/SHOW_TIME;
-                value = Mathf.Lerp(0,1, value);
-                Color c = new Color(1, 1, 1, value);
-                keyText.color = c;
-                keyUI.color = c;
-                yield return null;
-            }
-            elapsedTime = 0;
-            while (elapsedTime < SHOW_TIME)
-            {
-                elapsedTime += Time.deltaTime;
-                float value = elapsedTime/SHOW_TIME;
-                value = Mathf.Lerp(1,0, value);
-                Color c = new Color(1, 1, 1, value);
-                keyText.color = c;
-                keyUI.color = c;
-                yield return null;
-            }
+            yield return new WaitForSeconds(3);
+            keyText.gameObject.SetActive(true);
+            RenderSettings.ambientLight = Color.white;
+            yield return new WaitForSeconds(5);
+            keyText.gameObject.SetActive(false);
         }
         //methods for notes \/\/\/
     

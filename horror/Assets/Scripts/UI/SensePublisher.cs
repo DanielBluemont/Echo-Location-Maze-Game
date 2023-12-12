@@ -1,29 +1,33 @@
-using MazeGame.Sound;
+using MazeGame.AudioManaging;
+using MazeGame.Player;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace MazeGame.UI
 {
     public class SensePublisher : SliderPublisher
     {
+        private EchoLocation refToEchoLoc;
+        public override void Awake()
+        {
+            base.Awake();
+            if (SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                refToEchoLoc = FindObjectOfType<EchoLocation>();
+                _slider.onValueChanged.AddListener(val => refToEchoLoc.ChangeSense((int)val));
+            }
+        }
         public override void SetSliderValue(int value)
         {
             if (_slider != null)
             {
                 _slider.value = value;
-                if (AudioManagerClass.Instance != null)
+                if (refToEchoLoc != null)
                 {
-                    AudioManagerClass.Instance.ChangeVolume(value);
+                    refToEchoLoc.ChangeSense(value);
                     _sliderValue.ChangeValue(value);
                     Debug.Log($"Value is Changed to {value}");
                 }
-                else
-                {
-                    Debug.LogError("AudioManagerClass.Instance is null!");
-                }
-            }
-            else
-            {
-                Debug.LogError("_slider is null!");
             }
         }
     }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2177983889571090818}
   - component: {fileID: 1707701132588927738}
   - component: {fileID: 7318967889213604022}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: NoteRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prompt: E to pick up
   text: {fileID: 6124174664964583073}
+  _color: {r: 0.8509804, g: 0.02745098, b: 0.02745098, a: 0.5019608}
 --- !u!1 &2037315112223108308
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +143,7 @@ GameObject:
   - component: {fileID: 1533148863086195588}
   - component: {fileID: 3424918071141099710}
   - component: {fileID: 6124174664964583073}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +279,7 @@ GameObject:
   - component: {fileID: 8224457538045135662}
   - component: {fileID: 1309492668948050217}
   - component: {fileID: 1426583246130166539}
-  m_Layer: 16
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

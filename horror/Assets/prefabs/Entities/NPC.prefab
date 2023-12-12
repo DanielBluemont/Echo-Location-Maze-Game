@@ -1601,7 +1601,6 @@ GameObject:
   - component: {fileID: 235493740048321530}
   - component: {fileID: 7368261570126527181}
   - component: {fileID: 354352981009692552}
-  - component: {fileID: 8742863003305208305}
   - component: {fileID: -9095394689088663122}
   m_Layer: 13
   m_Name: NPC
@@ -1708,21 +1707,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  asMon: {fileID: -9095394689088663122}
   path: 0
---- !u!114 &8742863003305208305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7953334384501050819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd5ccf1c5e2525645a21d00f32d3257b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _soundClips:
-  - {fileID: 8300000, guid: 1fc2cbacdfa95db4eb2a2f67b6f37a4e, type: 3}
 --- !u!82 &-9095394689088663122
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1737,7 +1723,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

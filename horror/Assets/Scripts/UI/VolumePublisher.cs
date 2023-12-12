@@ -1,4 +1,4 @@
-using MazeGame.Sound;
+using MazeGame.AudioManaging;
 using UnityEngine;
 
 namespace MazeGame.UI
@@ -19,16 +19,7 @@ namespace MazeGame.UI
                 {
                     AudioManagerClass.Instance.ChangeVolume(value);
                     _sliderValue.ChangeValue(value);
-                    Debug.Log($"Value is Changed to {value}");
                 }
-                else
-                {
-                    Debug.LogError("AudioManagerClass.Instance is null!");
-                }
-            }
-            else
-            {
-                Debug.LogError("_slider is null!");
             }
         }
     }

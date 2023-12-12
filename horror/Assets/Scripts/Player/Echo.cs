@@ -1,4 +1,5 @@
 using MazeGame.EnemyAI;
+
 using UnityEngine;
 
 namespace MazeGame.Player
@@ -33,7 +34,7 @@ namespace MazeGame.Player
         }
         void CreateSound()
         {
-            var sound = new global::MazeGame.EnemyAI.Sound(this.transform.position, loud);
+            var sound = new Sound(this.transform.position, loud, NoiseType.Microphone);
             Sounds.MakeSound(sound);
         }
 

@@ -14,10 +14,12 @@ namespace MazeGame.Player
         [SerializeField] private float range, speed, throwForce, radius;
         [Space]
         [SerializeField] private UIprompt UIprompt;
-        
+
         private readonly Collider[] colliders = new Collider[3];
         private int found;
+        [SerializeField]
         private Rigidbody currentObj;
+        [SerializeField]
         private Camera cam;
         private Iinteractable _interactable;  
     

@@ -6,7 +6,7 @@ namespace MazeGame.Player
     public class EchoLocation : MonoBehaviour
     {
         [SerializeField] private GameObject Echo;
-        public float Sensibility = 100;
+        [SerializeField] private int Sensibility = 100;
         public double treshhold = 3;
         private int arrLength = 64;
 
@@ -24,7 +24,7 @@ namespace MazeGame.Player
                 audioSource = this.GetComponent<AudioSource>();
                 string device = Microphone.devices[0];
                 audioSource.clip = Microphone.Start(device, true, 20, AudioSettings.outputSampleRate);
-            }    
+            }
         }
         private void Update() 
         {
@@ -34,7 +34,10 @@ namespace MazeGame.Player
                 StartCoroutine(Reload());
             }
         }
-
+        public void ChangeSense(int value)
+        {
+            Sensibility = value;
+        }
         IEnumerator Reload()
         {
             CanSay = false;

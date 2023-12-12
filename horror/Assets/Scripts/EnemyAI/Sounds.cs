@@ -2,8 +2,14 @@ using UnityEngine;
 
 namespace MazeGame.EnemyAI
 {
+    public enum NoiseType
+    {
+        Microphone,
+        Object
+    }
     public static class Sounds
     {
+        
         public static void MakeSound(Sound sound)
         {
             Collider[] colliders = new Collider[1];

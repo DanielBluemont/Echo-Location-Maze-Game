@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 082f234e628e9e04ca491843fc90d568
+guid: f70b3e9e6bf02f04fb75c0a4d2c0ac6e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icons_for_settings_0
+      name: compass_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 168
-        width: 72
-        height: 72
+        x: 16
+        y: 102
+        width: 25
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,20 +142,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc65682d25a0645439382978892b1222
-      internalID: 346183161
+      spriteID: 46fddc6d6359eb64f9760627747fac82
+      internalID: 269470246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_for_settings_1
+      name: compass_1
       rect:
         serializedVersion: 2
-        x: 141
-        y: 173
-        width: 69
-        height: 65
+        x: 65
+        y: 94
+        width: 15
+        height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +163,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84f184d41bb79a944ad15d84d4cd91e8
-      internalID: -1409406944
+      spriteID: 873e07d7f127ecf4aa05c9a61e9e9361
+      internalID: 707298780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_for_settings_5
+      name: compass_2
       rect:
         serializedVersion: 2
-        x: 23
-        y: 18
-        width: 74
-        height: 101
+        x: 18
+        y: 56
+        width: 32
+        height: 25
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,29 +184,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13b29dd5ee4643049b25ffc93f21cb7f
-      internalID: -1367642491
+      spriteID: 6ca96d86a313c6a498210766298f6352
+      internalID: 622857051
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icons_for_settings_2
+      name: compass_3
       rect:
         serializedVersion: 2
-        x: 135
-        y: 19
-        width: 77
-        height: 99
+        x: 63
+        y: 58
+        width: 43
+        height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3931a7541f01873459154ff7a29b14db
-      internalID: -1283350724
+      spriteID: 12f30dbf45070ef4b86fda637268331e
+      internalID: -1991431055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: compass_4
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 10
+        width: 38
+        height: 38
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8084b8fafaf9af4c90e6dfb089d50d2
+      internalID: -663436022
       vertices: []
       indices: 
       edges: []
@@ -214,7 +235,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: b2d450b7c7dfad84fa8bdb2163266048
     internalID: 0
     vertices: []
     indices: 
@@ -222,13 +243,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Icons_for_settings_1: -1409406944
-      Icons_for_settings_6: -2066724450
-      Icons_for_settings_2: -1283350724
-      Icons_for_settings_4: -581403730
-      Icons_for_settings_5: -1367642491
-      Icons_for_settings_3: 1048312636
-      Icons_for_settings_0: 346183161
+      compass_3: -1991431055
+      compass_4: -663436022
+      compass_2: 622857051
+      compass_0: 269470246
+      compass_1: 707298780
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
