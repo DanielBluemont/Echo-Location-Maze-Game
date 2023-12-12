@@ -3,7 +3,11 @@ guid: 80a77fac713d5444597d61469ef1b7c8
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _vaseSprite: {fileID: 707298780, guid: f70b3e9e6bf02f04fb75c0a4d2c0ac6e, type: 3}
+  - _safeSprite: {fileID: 622857051, guid: f70b3e9e6bf02f04fb75c0a4d2c0ac6e, type: 3}
+  - _keySprite: {fileID: -1991431055, guid: f70b3e9e6bf02f04fb75c0a4d2c0ac6e, type: 3}
+  - _goal: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

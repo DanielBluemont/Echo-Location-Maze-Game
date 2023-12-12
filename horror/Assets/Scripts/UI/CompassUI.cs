@@ -10,5 +10,6 @@ namespace MazeGame.UI
         [SerializeField] private Sprite _vaseSprite, _safeSprite, _keySprite;
         [SerializeField] private Image _goal;
 
+
     }
 }
