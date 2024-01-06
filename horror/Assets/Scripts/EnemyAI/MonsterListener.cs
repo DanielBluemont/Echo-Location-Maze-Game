@@ -9,6 +9,7 @@ namespace MazeGame.EnemyAI
     [RequireComponent(typeof(NavMeshAgent))]
     public class MonsterListener : MonoBehaviour, IHear
     {
+
         [SerializeField] private SkinnedMeshRenderer mat;
         [SerializeField] private AnimationCurve curve;
         [SerializeField] private AudioSource asMon;
