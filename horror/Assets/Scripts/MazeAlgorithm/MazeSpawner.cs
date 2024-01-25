@@ -54,17 +54,17 @@ namespace MazeGame.MazeAlgorithm
             GameObject m;
             if (p.x <= 0)
             {
+                m = Instantiate(Monster, new Vector3(2.5f, 2.5f, p.z *5), Quaternion.identity);
                 Instantiate(Player, new Vector3(((Width - 1) * 5) -2.5f, 1f, 2.5f), Quaternion.identity);
                 GameObject cell = Instantiate(Exit, p*5, Quaternion.identity);
                 Destroy(cell.GetComponent<Cell>().WallBottom);
-                m = Instantiate(Monster, new Vector3(2.5f, 2.5f, p.z *5), Quaternion.identity);
             }
             else
             {
+                m = Instantiate(Monster, new Vector3(p.x * 5, 2.5f, -2.5f), Quaternion.identity);
                 Instantiate(Player, new Vector3(2.5f, 2f, ((Height - 1) * 5)-2.5f), Quaternion.identity);
                 GameObject cell = Instantiate(Exit, p*5, Quaternion.identity);
                 Destroy(cell.GetComponent<Cell>().WallLeft);
-                m = Instantiate(Monster, new Vector3(p.x * 5, 2.5f, -2.5f), Quaternion.identity);
             }
             m.GetComponent<MonsterListener>().InformAboutMapSize(Width);
         }

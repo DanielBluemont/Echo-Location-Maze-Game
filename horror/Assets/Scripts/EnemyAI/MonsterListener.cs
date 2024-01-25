@@ -20,52 +20,35 @@ namespace MazeGame.EnemyAI
         private int size;
         IState currentState;
         Player.Player player;
-        Color emColor = Color.red;
 
-        private Coroutine currentCoroutine;
+        float searchRange = 40f;
 
-
-        float duration = 0.5f, stay = 0.5f;
+    
 
         private void OnEnable()
         {
             UIprompt.OnPauseSwitch += HandleAudio;
+            UIprompt.OnFinishingGame += ChasePlayer;
         }
 
         private void OnDisable()
         {
             UIprompt.OnPauseSwitch -= HandleAudio;
+            UIprompt.OnFinishingGame -= ChasePlayer;
+        }
+        private void ChasePlayer()
+        {
+            currentState = StateControl.States[State.STATE_CHASING];
         }
         private void HandleAudio(bool val)
         {
             if (val) asMon.Pause();
             else asMon.UnPause();
         }
-        private IEnumerator Glow()
+        
+        public void SetRef(Player.Player pl)
         {
-            float elapsedTime = 0;
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
-                float frac = elapsedTime / duration;
-                float value = curve.Evaluate(frac);
-                float emissiveIntensity =  Mathf.Lerp(0f, 1f, value);
-                m.SetColor("_EmissionColor", emColor *emissiveIntensity);
-                yield return null;
-            }
-
-            yield return new WaitForSeconds(stay);
-            elapsedTime = 0;
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
-                float frac = elapsedTime / duration;
-                float value = curve.Evaluate(frac);
-                float emissiveIntensity=  Mathf.Lerp(1f, 0f, value);
-                m.SetColor("_EmissionColor", emColor * emissiveIntensity);
-                yield return null;
-            }
-
+            player = pl;
         }
 
         private void Update() 
@@ -76,7 +59,6 @@ namespace MazeGame.EnemyAI
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
-            player = FindObjectOfType<Player.Player>();
             playerLayer = LayerMask.GetMask("Player");
         }
     
@@ -110,36 +92,13 @@ namespace MazeGame.EnemyAI
 
         public void RespondToSound(Sound sound)
         {
-            if (isPlayerInZone() && sound.type == NoiseType.Microphone)
-            {
-                currentState = StateControl.States[State.STATE_CHASING];
-                if (!asMon.isPlaying) asMon.Play();
-            }
-            else
+            if (Vector3.Distance(transform.position, sound.pos) <= searchRange)
             {
                 agent.SetDestination(sound.pos);
-                StartCoroutine(FadeAudio());
             }
-            if (currentCoroutine != null)
-            {
-                StartCoroutine(Reload());
-                StopCoroutine(currentCoroutine);
-            }
-            currentCoroutine = StartCoroutine(Glow());
         }
 
-        private IEnumerator FadeAudio()
-        {
-            float currentTime = 0;
-            float startVolume = asMon.volume;
-            while (currentTime < 3)
-            {
-                currentTime += Time.deltaTime;
-                asMon.volume = Mathf.Lerp(startVolume, 0, currentTime / 3);
-                yield return null;
-            }
-            asMon.Stop();
-        }
+        
 
         private Vector3 FindPointToReach()
         {

@@ -1,5 +1,7 @@
+using MazeGame.EchoParticleSystem;
 using MazeGame.Player;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace MazeGame.GamePlayObjects
 {
@@ -12,7 +14,8 @@ namespace MazeGame.GamePlayObjects
             if (other.relativeVelocity.magnitude > treshold)
             {
                 int loud = Mathf.Clamp((int)other.relativeVelocity.magnitude ,3, 24);
-                Instantiate(Echo, transform.position, Quaternion.identity).GetComponent<Echo>().SetSize(loud);
+                //Instantiate(Echo, transform.position, Quaternion.identity).GetComponent<Echo>().SetSize(loud);
+                ParticleManager.Instance.EmitHere(transform.position, loud);
                 Instantiate(brokenVersion, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
             }

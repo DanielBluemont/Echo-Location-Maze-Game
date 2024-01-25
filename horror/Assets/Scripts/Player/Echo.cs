@@ -1,5 +1,5 @@
 using MazeGame.EnemyAI;
-
+using System.Collections;
 using UnityEngine;
 
 namespace MazeGame.Player
@@ -7,9 +7,11 @@ namespace MazeGame.Player
     [RequireComponent(typeof(ParticleSystem))]
     public class Echo : MonoBehaviour
     {
+        const float SLOPE = 0.277f;
         private float loud, time;
         ParticleSystem ps;
-        const float SLOPE = 0.277f;
+        ParticleSystemRenderer psRenderer;
+       
         public void SetSize(float _loud)
         {
             loud = 3 * _loud;
@@ -19,6 +21,8 @@ namespace MazeGame.Player
         private void Awake()
         {
             ps = GetComponent<ParticleSystem>();
+            ps.trigger.AddCollider(FindObjectOfType<MonsterListener>());
+            psRenderer = GetComponent<ParticleSystemRenderer>();
         }
         void Start()
         {   
@@ -29,17 +33,22 @@ namespace MazeGame.Player
                 main.startSize = loud;
             }
             //Debug.Log($"{loud} | {time}");
-            CreateSound();
+            //CreateSound();
             Destroy(gameObject, time + 1);
         }
-        void CreateSound()
+       
+
+        /*private void OnParticleTrigger()
         {
-            var sound = new Sound(this.transform.position, loud, NoiseType.Microphone);
-            Sounds.MakeSound(sound);
-        }
-
-    
-
-
+            
+            Debug.Log("Yeah");
+            StartCoroutine(ColorFlash());
+        }*/
+        /*private IEnumerator ColorFlash()
+        {
+            psRenderer.material.SetColor("Color", detColor);
+            yield return new WaitForSeconds(0.5f);
+            psRenderer.material.SetColor("Color", origColor);
+        }*/
     }
 }

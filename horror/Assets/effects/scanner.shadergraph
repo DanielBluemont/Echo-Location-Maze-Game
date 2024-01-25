@@ -597,6 +597,12 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
+    "m_ObjectId": "29fcf988c7104523b836696d848e6222"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.RemapNode",
     "m_ObjectId": "2cbbd1fc9fa74d89a1afd0afcd19b9f1",
     "m_Group": {
@@ -769,12 +775,6 @@
         "m_SerializableColors": []
     },
     "m_ScreenSpaceType": 1
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
-    "m_ObjectId": "447ebd3b39484f97b999e4c6d2d6365b"
 }
 
 {
@@ -1630,7 +1630,7 @@
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
     "m_ObjectId": "b3bfb860ad6e4ca8bd8a07e1118474a9",
     "m_ActiveSubTarget": {
-        "m_Id": "447ebd3b39484f97b999e4c6d2d6365b"
+        "m_Id": "29fcf988c7104523b836696d848e6222"
     },
     "m_AllowMaterialOverride": true,
     "m_SurfaceType": 1,
