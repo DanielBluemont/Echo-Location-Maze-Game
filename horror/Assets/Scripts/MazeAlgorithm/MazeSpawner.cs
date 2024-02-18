@@ -8,7 +8,7 @@ namespace MazeGame.MazeAlgorithm
     public class MazeSpawner : MonoBehaviour
     {
         [SerializeField] private Cell CellPrefab;
-        [SerializeField] private GameObject Player, Monster,Exit;
+        [SerializeField] private GameObject Player, Monster,Exit, Ps;
         [SerializeField] private Vector3 CellSize = new Vector3(1,1,0);
         [SerializeField] private Transform Maze;
         [SerializeField] private int Width, Height;
@@ -46,6 +46,7 @@ namespace MazeGame.MazeAlgorithm
             vases.PlaceVases(maze,cellList, Width, Height);
             surface.BuildNavMesh();
             SpawnExitAndPlayer((new Vector3(maze.finishPosition.x, 0, maze.finishPosition.y)));
+            Instantiate(Ps);
         }
     
     

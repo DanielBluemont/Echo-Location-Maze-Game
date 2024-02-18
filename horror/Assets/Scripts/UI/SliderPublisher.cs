@@ -6,14 +6,11 @@ namespace MazeGame.UI
 {
     public abstract class SliderPublisher : MonoBehaviour
     {
-        [SerializeField] protected VolumeSliderValue _sliderValue;
+        
         [SerializeField] protected Slider _slider;
-        public virtual void Awake()
-        {
-            this._slider.onValueChanged.AddListener(val => this._sliderValue.ChangeValue((int)val));
-        }
+        
 
-        public virtual void SetSliderValue(int value)
+        public virtual void SetSliderValue(float value)
         {
             if (_slider != null)
             {
@@ -21,7 +18,7 @@ namespace MazeGame.UI
                 if (AudioManagerClass.Instance != null)
                 {
                     AudioManagerClass.Instance.ChangeVolume(value);
-                    _sliderValue.ChangeValue(value);
+                    
                     Debug.Log($"Value is Changed to {value}");
                 }
                 else

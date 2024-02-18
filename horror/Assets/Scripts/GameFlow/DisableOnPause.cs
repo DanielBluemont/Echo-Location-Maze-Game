@@ -1,11 +1,12 @@
 using MazeGame.UI;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace MazeGame.GameFlow
 {
     public class DisableOnPause : MonoBehaviour
     {
-        [SerializeField] private MonoBehaviour _script;
+        [SerializeField] private List<MonoBehaviour> _script = new List<MonoBehaviour>();
         private void OnEnable()
         {
             UIprompt.OnPauseSwitch += ToggleState;
@@ -18,7 +19,10 @@ namespace MazeGame.GameFlow
 
         private void ToggleState(bool isPaused)
         {
-            _script.enabled = !isPaused;
+            foreach (var script in _script) 
+            { 
+                script.enabled = !isPaused;
+            }
         }
     }
 }

@@ -5,12 +5,11 @@ namespace MazeGame.UI
 {
     public class VolumePublisher : SliderPublisher
     {
-        public override void Awake()
+        public void Awake()
         {
-            base.Awake();
             _slider.onValueChanged.AddListener(val => AudioManagerClass.Instance.ChangeVolume(val));
         }
-        public override void SetSliderValue(int value)
+        public override void SetSliderValue(float value)
         {
             if (_slider != null)
             {
@@ -18,7 +17,6 @@ namespace MazeGame.UI
                 if (AudioManagerClass.Instance != null)
                 {
                     AudioManagerClass.Instance.ChangeVolume(value);
-                    _sliderValue.ChangeValue(value);
                 }
             }
         }

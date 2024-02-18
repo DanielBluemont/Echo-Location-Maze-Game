@@ -8,16 +8,15 @@ namespace MazeGame.UI
     public class SensePublisher : SliderPublisher
     {
         private EchoLocation refToEchoLoc;
-        public override void Awake()
+        public void Awake()
         {
-            base.Awake();
             if (SceneManager.GetActiveScene().buildIndex == 1)
             {
                 refToEchoLoc = FindObjectOfType<EchoLocation>();
-                _slider.onValueChanged.AddListener(val => refToEchoLoc.ChangeSense((int)val));
+                _slider.onValueChanged.AddListener(val => refToEchoLoc.ChangeSense(val));
             }
         }
-        public override void SetSliderValue(int value)
+        public override void SetSliderValue(float value)
         {
             if (_slider != null)
             {
@@ -25,7 +24,6 @@ namespace MazeGame.UI
                 if (refToEchoLoc != null)
                 {
                     refToEchoLoc.ChangeSense(value);
-                    _sliderValue.ChangeValue(value);
                     Debug.Log($"Value is Changed to {value}");
                 }
             }

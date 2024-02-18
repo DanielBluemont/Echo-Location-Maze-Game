@@ -19,10 +19,10 @@ namespace MazeGame.UI
         }
         public void BackToDefault() 
         { 
-            SetSoundVolume(100);
-            SetSenseValue(100);
-            _volumePublisher.SetSliderValue(100);
-            _sensePublisher.SetSliderValue(100);
+            SetSoundVolume(1);
+            SetSenseValue(0);
+            _volumePublisher.SetSliderValue(1);
+            _sensePublisher.SetSliderValue(0);
             SaveSettings();
         }
         public void CloseSettings()
@@ -47,9 +47,9 @@ namespace MazeGame.UI
         private void LoadSettings()
         {
             _volumePublisher.
-                SetSliderValue(PlayerPrefs.GetInt("SoundVolume", 100));
+                SetSliderValue(PlayerPrefs.GetInt("SoundVolume", 1));
             _sensePublisher.
-                SetSliderValue(PlayerPrefs.GetInt("SenseValue", 100));
+                SetSliderValue(PlayerPrefs.GetInt("SenseValue", 0));
         }
         private void SaveSettings()
         {

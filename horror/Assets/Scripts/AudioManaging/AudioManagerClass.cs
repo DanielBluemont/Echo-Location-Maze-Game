@@ -47,7 +47,7 @@ namespace MazeGame.AudioManaging
 
         public void ChangeVolume(float value)
         {
-            AudioListener.volume = value/100;
+            AudioListener.volume = value;
         }
 
 

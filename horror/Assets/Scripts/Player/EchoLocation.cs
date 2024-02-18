@@ -3,6 +3,7 @@ using UnityEngine;
 using MazeGame.EchoParticleSystem;
 using MazeGame.EnemyAI;
 using System.Collections.Generic;
+using MazeGame.UI;
 
 namespace MazeGame.Player
 {
@@ -11,36 +12,73 @@ namespace MazeGame.Player
     {
         
         [SerializeField] private GameObject Echo;
-        [SerializeField] private int Sensibility = 100;
+        [SerializeField] private int Sensibility = 100, MinSens = 100, MaxSense = 1000;
         [SerializeField] private ParticleSystem _ps;
         public double treshhold = 3;
         private int sampleWindow = 64;
 
         private AudioSource audioSource;
         private MonsterListener _ml;
+        private string _micName;
 
         List<ParticleSystem.Particle> enter = new List<ParticleSystem.Particle>();
 
         bool CanSay = true;
+
+        /*private void OnEnable()
+        {
+            MicSelector.OnMicChanged += ConnectMic;
+            StartRecording();
+        }
+
+        private void OnDisable()
+        {
+            StopRecording();
+            MicSelector.OnMicChanged -= ConnectMic;
+        }*/
+        private void OnEnable()
+        {
+            ConnectMic(PlayerPrefs.GetInt("MicOption", 0));
+        }
+       
         private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
             _ml = FindObjectOfType<MonsterListener>();
             _ml.SetRef(transform.parent.GetComponent<Player>());
             _ps.trigger.AddCollider(_ml.GetComponent<Collider>());
-        
+            
         }
-        void Start()     
-        {    
-            if(Microphone.devices.Length <= 0)    
-            {    
-                Debug.LogWarning("Microphone's not connected!");    
-            }    
-            else 
-            {    
-                string device = Microphone.devices[0];
-                audioSource.clip = Microphone.Start(device, true, 20, AudioSettings.outputSampleRate);
+        
+        private void ConnectMic(int index)
+        {
+            _micName = Microphone.devices[index];
+            Debug.Log(_micName);
+            StartRecording();
+        }
+        private void StartRecording()
+        {
+            audioSource.clip = Microphone.Start(_micName, true, 20, AudioSettings.outputSampleRate);
+        }
+        private void StopRecording()
+        {
+            if (audioSource.isPlaying) 
+            { 
+                Microphone.End(_micName);
+                audioSource.Stop();
             }
+        }
+        
+        private void EchoLocate()
+        {
+            float loudness = GetLoudness(Microphone.GetPosition(_micName), audioSource.clip) * Sensibility;
+            Debug.Log($"current {loudness}");
+            if (loudness < treshhold)
+            {
+                return;
+            }
+        
+            EmitSphere(loudness);
         }
         private void Update() 
         {
@@ -51,9 +89,9 @@ namespace MazeGame.Player
             }
         }
         
-        public void ChangeSense(int value)
+        public void ChangeSense(float value)
         {
-            Sensibility = value;
+            Sensibility = (int)Mathf.Lerp(MinSens, MaxSense, value);
         }
         IEnumerator Reload()
         {
@@ -62,21 +100,6 @@ namespace MazeGame.Player
             CanSay = true;
         }
         
-        private void EchoLocate()
-        {
-            float loudness = GetLoudness(Microphone.GetPosition(Microphone.devices[0]), audioSource.clip) * Sensibility;
-            if (loudness < treshhold)
-            {
-                return;
-            }
-        
-            EmitSphere(loudness);
-
-            /*Echo echo = Instantiate(Echo, transform.position, Quaternion.identity).GetComponent<Echo>();
-            if (echo != null)
-            {
-            }*/
-        }
 
         private IEnumerator ColorFlash()
         {
