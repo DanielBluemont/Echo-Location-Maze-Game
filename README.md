@@ -1,5 +1,5 @@
 # WARNING
-* The game is abandoned and will to be finished
+* The game is abandoned and will not be finished
 # Description
 * WASD movement
 * Use microphone to use echolocation
